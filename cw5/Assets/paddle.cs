@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class paddle : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    [SerializeField] private float speed;
+    private Rigidbody2D body;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        rb = this,Getcomponent<Rigidbody2D>();
-
+        body = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void fixedUpdate()
+    private void Update()
     {
-        rb.velocity = new Vector2(input.Getaxis("horizontal"), 0f);
+        body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+
+        if (Input.GetKey(KeyCode.Space))
+            body.velocity = new Vector2(body.velocity.x, speed);
     }
 }
